@@ -1,9 +1,10 @@
 %{
 #include <stdio.h>
+#include <stdlib.h>
 
-int linhas = 0;
+int linhas = 1;
 int palavras = 0;
-int caracteres = 0;
+int caracteres = 1;
 int inteiros = 0;
 int floats = 0;
 int pontuacoes = 0;
@@ -24,14 +25,28 @@ int pontuacoes = 0;
 
 int main(int argc, char **argv)
 {
+    yyin = fopen("entrada.txt", "r");
+    if (!yyin) {
+        return 1;
+    }
+
+    FILE *saida = fopen("saida.txt", "w");
+    if (!saida) {
+        fclose(yyin);
+        return 1;
+    }
+
     yylex();
     
-    printf("linhas: %d\n", linhas);
-    printf("palavras: %d\n", palavras);
-    printf("caracteres: %d\n", caracteres);
-    printf("inteiros: %d\n", inteiros);
-    printf("floats: %d\n", floats);
-    printf("pontuacoes: %d\n", pontuacoes);
+    fprintf(saida, "linhas: %d\n", linhas);
+    fprintf(saida, "palavras: %d\n", palavras);
+    fprintf(saida, "caracteres: %d\n", caracteres);
+    fprintf(saida, "inteiros: %d\n", inteiros);
+    fprintf(saida, "floats: %d\n", floats);
+    fprintf(saida, "pontuacoes: %d\n", pontuacoes);
+    
+    fclose(yyin);
+    fclose(saida);
     
     return 0;
 }

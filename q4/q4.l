@@ -42,11 +42,20 @@ int main(int argc, char **argv)
         return 1;
     }
 
+    FILE *saida = fopen("saida.txt", "w");
+    if (!saida) {
+        printf("Erro: Nao foi possivel criar o arquivo de saida.\n");
+        fclose(arquivo);
+        return 1;
+    }
+
     yyin = arquivo;
     yylex();
+    
+    fprintf(saida, "%s", relatorio);
+    
     fclose(arquivo);
-
-    printf("%s", relatorio);
+    fclose(saida);
 
     return 0;
 }

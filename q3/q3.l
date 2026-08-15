@@ -1,6 +1,7 @@
 %{
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 char relatorio[65536] = "";
 char buffer_temp[1024];
@@ -30,9 +31,23 @@ char buffer_temp[1024];
 
 int main(int argc, char **argv)
 {
+    yyin = fopen("entrada.txt", "r");
+    if (!yyin) {
+        return 1;
+    }
+
+    FILE *saida = fopen("saida.txt", "w");
+    if (!saida) {
+        fclose(yyin);
+        return 1;
+    }
+
     yylex();
     
-    printf("%s", relatorio);
+    fprintf(saida, "%s", relatorio);
+    
+    fclose(yyin);
+    fclose(saida);
     
     return 0;
 }
