@@ -1,19 +1,6 @@
-# 1. Arquivos gerados pelo Flex
 lex.yy.c
 
-# 2. Arquivos compilados do C (Executáveis gerados pelo GCC)
-# Adicione aqui os nomes dos executáveis de cada questão que você for criando
-q1
-q2
-q3
-contador
-
-# Executável padrão do C (caso você compile sem a flag -o)
-a.out
-
-# Arquivos objeto do C (compilações intermediárias, por precaução)
-*.o
-*.obj
-
-.DS_Store
-Thumbs.db
+/q1/q1
+/q2/q2
+/q3/q3
+/q4/q4
