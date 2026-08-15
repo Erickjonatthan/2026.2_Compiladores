@@ -14,17 +14,75 @@ O projeto está dividido em quatro questões iterativas. As Questões 1, 2 e 3 p
 ## Decisões Técnicas de Arquitetura
 
 ### O Problema da Saída Intercalada
+
 O comportamento padrão do motor do Flex (`yylex()`) ao ler da entrada padrão é reagir token por token. Se usássemos `printf` diretamente nas regras do Flex, a saída dos tokens ficaria misturada com o texto que o usuário ainda está digitando no terminal. A atividade exigia que a saída fosse gerada em um bloco único.
 
 ### A Solução: Memória de Texto (`relatorio` e `buffer_temp`)
+
 Para as Questões 2, 3 e 4, implementamos uma arquitetura de armazenamento em memória utilizando a biblioteca `<string.h>`.
 
-1. **`char relatorio[65536]`:** 
-   Atua como um grande bloco de notas invisível. Em vez de imprimir na tela imediatamente, nós adicionamos os tokens encontrados no final desta string.
-2. **`char buffer_temp[1024]`:** 
-   Atua como uma variável auxiliar para formatação. Em regras onde precisamos recuperar o texto exato que o usuário digitou (acessando a variável nativa `yytext`), formatamos a string antes de anexá-la ao relatório principal.
+1. **`char relatorio[65536]`:**
+   Atua como um grande bloco de notas invisível. Em vez de imprimir na tela imediatamente, nós adicionamos os tokens encontrados ao final desta string.
+
+2. **`char buffer_temp[1024]`:**
+   Atua como uma variável auxiliar para formatação. Em regras onde precisamos recuperar o texto exato que o usuário digitou, acessando a variável nativa `yytext`, formatamos a string antes de anexá-la ao relatório principal.
 
 **Como funciona na prática:**
-Para tokens estáticos (como palavras reservadas), usamos o `strcat` direto:
+
+Para tokens estáticos, como palavras reservadas, usamos `strcat` diretamente:
+
 ```c
 "if"    { strcat(relatorio, "IF\n"); }
+```
+
+Para tokens dinâmicos, como identificadores ou números, formatamos primeiro o conteúdo em `buffer_temp` utilizando `sprintf` e depois adicionamos o resultado ao relatório com `strcat`:
+
+```c
+[0-9]+  { sprintf(buffer_temp, "NUMBER %s\n", yytext); strcat(relatorio, buffer_temp); }
+```
+
+A função `printf("%s", relatorio);` é executada estritamente após o término do `yylex()`, garantindo a impressão final formatada e em bloco único.
+
+## Como Compilar e Gerar as Saídas
+
+Certifique-se de ter o `flex` e o `gcc` instalados no seu ambiente.
+
+As Questões 1, 2 e 3 utilizam o redirecionamento nativo do Unix (`<` e `>`) para ler e gerar os arquivos `.txt` exigidos na entrega, preservando a lógica de **entrada padrão** requisitada no documento da atividade.
+
+### 1. Navegue até a pasta da questão
+
+Por exemplo:
+
+```bash
+cd q3
+```
+
+### 2. Gere o código C com o Flex
+
+```bash
+flex q3.l
+```
+
+### 3. Compile o programa
+
+```bash
+gcc lex.yy.c -o q3
+```
+
+### 4. Execute e gere o arquivo de saída
+
+#### Para Q1, Q2 e Q3 — Redirecionamento de Entrada e Saída
+
+```bash
+./q3 < entrada.txt > saida.txt
+```
+
+O arquivo `entrada.txt` é utilizado como entrada padrão do programa e a saída produzida pelo analisador é direcionada para `saida.txt`.
+
+#### Para Q4 — Arquivo por Argumento e Redirecionamento de Saída
+
+```bash
+./q4 entrada.txt > saida.txt
+```
+
+Na Questão 4, o arquivo é informado diretamente como argumento de linha de comando, enquanto a saída continua sendo redirecionada para o arquivo `saida.txt`.
