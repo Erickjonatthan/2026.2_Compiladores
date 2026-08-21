@@ -1,0 +1,6 @@
+inicio
+    se [a <= b && c >= d] faz {
+        se [x == y || z != w] faz {
+        }
+    }
+fim
