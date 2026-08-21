@@ -1,0 +1,10 @@
+inicio
+    {---
+        Comentario de bloco aberto aqui.
+        Ele pode ocupar varias linhas estruturadas.
+    ---}
+    # Comentario de linha simples bem aqui
+    se [sim] faz {
+        mostre(1)$
+    }
+fim

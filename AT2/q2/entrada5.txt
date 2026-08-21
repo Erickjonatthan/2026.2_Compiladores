@@ -1,0 +1,4 @@
+inicio
+    valor = a ? b \ c$
+    usuario = nome @ provedor$
+fim

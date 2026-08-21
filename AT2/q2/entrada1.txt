@@ -1,0 +1,6 @@
+inicio
+    inteiro repita$
+    real faca2$
+    texto naoSei$
+    repita = 10$
+fim
