@@ -118,7 +118,7 @@ yield                       { printf("LINHA %d: KEYWORD(%s)\n", linha, yytext); 
 ","                         { printf("LINHA %d: DELIMITER(%s)\n", linha, yytext); }
 ":"                         { printf("LINHA %d: DELIMITER(%s)\n", linha, yytext); }
 "."                         { printf("LINHA %d: DELIMITER(%s)\n", linha, yytext); }
-";"                         { printf("LINHA %d: DELIMITER(%s)\n", linha, yytext); }
+";"                            { printf("LINHA %d: DELIMITER(%s)\n", linha, yytext); }
 
 .                           { printf("LINHA %d: ERROR(%s)\n", linha, yytext); }
 
