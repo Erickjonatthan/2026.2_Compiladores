@@ -1,0 +1,9 @@
+{
+  "negativo": -17,
+  "fracao": 3.14159,
+  "menos_fracao": -0.5,
+  "zero": 0,
+  "vazia": "",
+  "duas palavras": "com espaco no meio",
+  "acentos": "declaração"
+}

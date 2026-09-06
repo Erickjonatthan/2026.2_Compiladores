@@ -1,0 +1,10 @@
+{
+  "nome": "Maria",
+  "idade": 35,
+  "ativo": true,
+  "notas": [8.5, 7.0, 9.0],
+  "endereco": {
+    "rua": "X",
+    "numero": 10
+  }
+}
